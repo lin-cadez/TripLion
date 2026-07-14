@@ -1,0 +1,17 @@
+{
+  "name": "triplion-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.1.6",
+    "astro": "^4.15.0",
+    "typescript": "^5.9.3"
+  }
+}
