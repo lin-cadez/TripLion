@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+}
+
+const { title, description, path = '/', ogImage = '/assets/logo-lion.png' } = Astro.props;
+const canonical = new URL(path, Astro.site).toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'TripLion',
+  url: 'https://trip-lion.com',
+  logo: 'https://trip-lion.com/assets/logo-lion.png',
+  sameAs: ['https://app.trip-lion.com'],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'TripLion',
+  url: 'https://trip-lion.com',
+};
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'TripLion',
+  applicationCategory: 'TravelApplication',
+  operatingSystem: 'Web',
+  url: 'https://trip-lion.com',
+  description: 'AI-powered road trip planner that helps you plan routes, discover places, and share itineraries.',
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta name="theme-color" content="#160d0a" />
+  <!-- Replace the content value below with your real Google Search Console verification code -->
+  <meta name="google-site-verification" content="REPLACE_WITH_SEARCH_CONSOLE_CODE" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <link rel="icon" href="/assets/logo-lion.png" />
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+  <Header />
+  <slot />
+  <Footer />
+</body>
+</html>
