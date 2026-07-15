@@ -1,0 +1,21 @@
+# TripLion
+
+> TripLion is an AI-powered road trip planner. Plan routes, discover places with
+> AI-driven search, save and organize favorite stops, share trip itineraries, and
+> export or print a finished plan.
+
+## Key pages
+
+- Home: https://trip-lion.com/
+- Features: https://trip-lion.com/features
+- Blog: https://trip-lion.com/blog
+- Contact: https://trip-lion.com/contact
+- App (product): https://app.trip-lion.com
+
+## About
+
+TripLion helps travelers plan road trips end-to-end: build a day-by-day itinerary,
+discover restaurants, attractions, and hidden gems along the route using AI-powered
+search, save places into shareable lists, and export the final plan as a PDF or
+shareable link. The product is in pre-launch; the website collects email signups for
+launch notifications.
