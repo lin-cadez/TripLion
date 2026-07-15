@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => p.slug !== 'placeholder-post')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout
+  title="Blog | TripLion"
+  description="Road trip planning guides, tips, and inspiration from TripLion."
+  path="/blog"
+>
+  <section class="section container">
+    <h1 class="section-title">The TripLion Blog</h1>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <a class="blog-card" href={`/blog/${post.slug}/`}>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

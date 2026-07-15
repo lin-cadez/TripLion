@@ -1,0 +1,42 @@
+---
+import Layout from './Layout.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+}
+
+const { title, description, pubDate } = Astro.props;
+const formattedDate = pubDate.toISOString().split('T')[0];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'TripLion' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://trip-lion.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://trip-lion.com/blog' },
+    { '@type': 'ListItem', position: 3, name: title },
+  ],
+};
+---
+<Layout title={`${title} | TripLion Blog`} description={description} path="/blog/">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <article class="section container">
+    <p class="footer-tagline">{formattedDate}</p>
+    <div class="prose">
+      <h1>{title}</h1>
+      <slot />
+    </div>
+  </article>
+</Layout>
