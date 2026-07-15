@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const features = [
+  {
+    slug: 'ai-chat',
+    icon: '💬',
+    title: 'AI Travel Chat',
+    body: "TripLion's built-in AI assistant knows the difference between \"find me a quiet beach\" and \"find me a fast food stop 10 minutes off the highway.\" Ask it natural questions about your trip — best stops, kid-friendly detours, budget picks — and get answers grounded in real places along your actual route, not generic search results.",
+  },
+  {
+    slug: 'explore-discover',
+    icon: '🧭',
+    title: 'Explore & Discovery',
+    body: 'Search by category — restaurants, cafes, hotels, museums, parks, shopping, bars, and attractions — or let TripLion detect what you\'re really looking for from a plain-language query like "best romantic dinner spot" or "hidden gem hiking trail." Results are automatically biased toward your current route, so you\'re not scrolling through places three hours away.',
+  },
+  {
+    slug: 'interactive-map',
+    icon: '🗺️',
+    title: 'Interactive Map',
+    body: 'Every stop lives on a full interactive map. Switch to satellite view or drop into Street View before you arrive, check transit routes for stops with public transport, and see photos, ratings, hours, and contact info without leaving the planner.',
+  },
+  {
+    slug: 'save-organize',
+    icon: '🔖',
+    title: 'Save & Organize',
+    body: 'Found ten places you love and can only visit three? Save them all into custom lists — "Must-see attractions," "Backup restaurants," whatever makes sense for your trip — directly from search results or the map.',
+  },
+  {
+    slug: 'share-trips',
+    icon: '🔗',
+    title: 'Share Trips & Lists',
+    body: 'Every trip and every saved list can become a shareable link with a clean, custom URL. Send it to whoever you\'re traveling with so everyone can see the plan — no account required to view, sign-in only needed if you want to edit or create your own.',
+  },
+  {
+    slug: 'export-print',
+    icon: '📄',
+    title: 'Export & Print',
+    body: 'When it\'s time to hit the road, export your itinerary as a PDF in a Detailed layout (maps, routes, addresses, timelines) or a Clean layout (just the schedule) — or print it directly. Perfect for the parts of a road trip where you don\'t want to be staring at a phone.',
+  },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://trip-lion.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Features', item: 'https://trip-lion.com/features' },
+  ],
+};
+---
+<Layout
+  title="Features | TripLion"
+  description="Everything TripLion does to help you plan, discover, and share the perfect road trip."
+  path="/features"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <section class="section container">
+    <h1 class="section-title">Everything you need to plan the perfect road trip</h1>
+    {features.map((f) => (
+      <div id={f.slug} class="feature-card" style="margin-bottom: 20px;">
+        <span class="feature-icon" aria-hidden="true">{f.icon}</span>
+        <h2>{f.title}</h2>
+        <p>{f.body}</p>
+      </div>
+    ))}
+    <div class="final-cta">
+      <a href="/#notify" class="cta-button">Coming Soon</a>
+    </div>
+  </section>
+</Layout>
