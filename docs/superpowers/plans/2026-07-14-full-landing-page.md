@@ -973,7 +973,7 @@ pubDate: 2026-01-01
 Placeholder content.
 ```
 
-Save as `src/content/blog/_placeholder.md`.
+Save as `src/content/blog/placeholder-post.md`.
 
 - [ ] **Step 3: Create src/layouts/BlogPost.astro**
 
@@ -1030,7 +1030,7 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
-  .filter((p) => p.slug !== '_placeholder')
+  .filter((p) => p.slug !== 'placeholder-post')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <Layout
@@ -1078,17 +1078,17 @@ const { Content } = await post.render();
 - [ ] **Step 6: Build and verify**
 
 Run: `npm run build`
-Expected: exits 0, creates `dist/blog/index.html` and `dist/blog/_placeholder/index.html`.
+Expected: exits 0, creates `dist/blog/index.html` and `dist/blog/placeholder-post/index.html`.
 
 - [ ] **Step 7: Grep for Article schema on the placeholder post**
 
-Run: `grep -c '"@type":"Article"' dist/blog/_placeholder/index.html`
+Run: `grep -c '"@type":"Article"' dist/blog/placeholder-post/index.html`
 Expected: count ≥ 1.
 
 - [ ] **Step 8: Remove the placeholder post (real posts added next task)**
 
 ```bash
-rm src/content/blog/_placeholder.md
+rm src/content/blog/placeholder-post.md
 ```
 
 - [ ] **Step 9: Commit**
