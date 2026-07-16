@@ -5,9 +5,10 @@ export interface Props {
   title: string;
   description: string;
   pubDate: Date;
+  slug: string;
 }
 
-const { title, description, pubDate } = Astro.props;
+const { title, description, pubDate, slug } = Astro.props;
 const formattedDate = pubDate.toISOString().split('T')[0];
 
 const articleSchema = {
@@ -29,7 +30,7 @@ const breadcrumbSchema = {
   ],
 };
 ---
-<Layout title={`${title} | TripLion Blog`} description={description} path="/blog/">
+<Layout title={`${title} | TripLion Blog`} description={description} path={`/blog/${slug}/`}>
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <article class="section container">
