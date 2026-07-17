@@ -1,15 +1,44 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
 
 export interface Props {
   title: string;
   description: string;
   pubDate: Date;
+  updatedDate?: Date;
   slug: string;
+  image: string;
+  imageAlt: string;
+  imageCredit?: string;
+  category: string;
+  primaryKeyword: string;
+  headings: { depth: number; slug: string; text: string }[];
+  wordCount: number;
+  relatedPosts: CollectionEntry<'blog'>[];
 }
 
-const { title, description, pubDate, slug } = Astro.props;
-const formattedDate = pubDate.toISOString().split('T')[0];
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  slug,
+  image,
+  imageAlt,
+  imageCredit,
+  category,
+  headings,
+  wordCount,
+  relatedPosts,
+} = Astro.props;
+
+const published = pubDate.toISOString().split('T')[0];
+const modified = (updatedDate ?? pubDate).toISOString().split('T')[0];
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
+const toc = headings.filter((heading) => heading.depth === 2);
+const canonicalUrl = `https://trip-lion.com/blog/${slug}/`;
+const imageUrl = new URL(image, Astro.site).toString();
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -17,7 +46,15 @@ const articleSchema = {
   headline: title,
   description,
   datePublished: pubDate.toISOString(),
-  author: { '@type': 'Organization', name: 'TripLion' },
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  mainEntityOfPage: canonicalUrl,
+  image: imageUrl,
+  author: { '@type': 'Organization', name: 'TripLion', url: 'https://trip-lion.com' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TripLion',
+    logo: { '@type': 'ImageObject', url: 'https://trip-lion.com/assets/logo-lion.png' },
+  },
 };
 
 const breadcrumbSchema = {
@@ -26,18 +63,85 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://trip-lion.com/' },
     { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://trip-lion.com/blog' },
-    { '@type': 'ListItem', position: 3, name: title },
+    { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
   ],
 };
 ---
-<Layout title={`${title} | TripLion Blog`} description={description} path={`/blog/${slug}/`}>
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  <article class="section container">
-    <p class="footer-tagline">{formattedDate}</p>
-    <div class="prose">
-      <h1>{title}</h1>
-      <slot />
-    </div>
-  </article>
+<Layout
+  title={`${title} | TripLion`}
+  description={description}
+  path={`/blog/${slug}/`}
+  ogImage={image}
+  ogType="article"
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <main class="article-shell">
+    <article>
+      <header class="article-header container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog">Blog</a>
+        </nav>
+        <p class="article-kicker">{category}</p>
+        <h1>{title}</h1>
+        <p class="article-deck">{description}</p>
+        <div class="article-meta">
+          <span>Published <time datetime={published}>{pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time></span>
+          {updatedDate && <span>Updated <time datetime={modified}>{updatedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time></span>}
+          <span>{readingMinutes} min read</span>
+        </div>
+      </header>
+
+      <figure class="article-hero container">
+        <img src={image} alt={imageAlt} width="1600" height="900" fetchpriority="high" />
+        {imageCredit && <figcaption>{imageCredit}</figcaption>}
+      </figure>
+
+      <div class="article-grid container">
+        {toc.length > 1 && (
+          <aside class="toc" aria-label="Table of contents">
+            <p>On this page</p>
+            <ol>
+              {toc.map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+            </ol>
+          </aside>
+        )}
+
+        <div class="prose article-prose">
+          <slot />
+
+          <aside class="article-cta">
+            <p class="eyebrow">Plan it in one place</p>
+            <h2>Turn the ideas into a route</h2>
+            <p>Build your itinerary, keep worthwhile stops together, and share the plan with the people coming along.</p>
+            <a class="button button-primary" href="https://app.trip-lion.com">Open TripLion</a>
+          </aside>
+        </div>
+      </div>
+    </article>
+
+    {relatedPosts.length > 0 && (
+      <section class="related-posts section-band">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Keep planning</p>
+            <h2>Related road trip guides</h2>
+          </div>
+          <div class="blog-grid">
+            {relatedPosts.map((post) => (
+              <a class="blog-card" href={`/blog/${post.slug}/`}>
+                <img src={post.data.image} alt="" width="1600" height="900" loading="lazy" />
+                <div class="blog-card-body">
+                  <p class="card-meta">{post.data.category}</p>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
 </Layout>

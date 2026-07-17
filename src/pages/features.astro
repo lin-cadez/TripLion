@@ -4,39 +4,33 @@ import Layout from '../layouts/Layout.astro';
 const features = [
   {
     slug: 'ai-chat',
-    icon: '💬',
-    title: 'AI Travel Chat',
-    body: "TripLion's built-in AI assistant knows the difference between \"find me a quiet beach\" and \"find me a fast food stop 10 minutes off the highway.\" Ask it natural questions about your trip — best stops, kid-friendly detours, budget picks — and get answers grounded in real places along your actual route, not generic search results.",
+    title: 'Ask for the stop you mean',
+    body: 'TripLion understands the difference between "find me a quiet beach" and "find me a quick food stop close to the highway." Ask natural questions about the route and turn useful answers into actual stops.',
   },
   {
     slug: 'explore-discover',
-    icon: '🧭',
-    title: 'Explore & Discovery',
-    body: 'Search by category — restaurants, cafes, hotels, museums, parks, shopping, bars, and attractions — or let TripLion detect what you\'re really looking for from a plain-language query like "best romantic dinner spot" or "hidden gem hiking trail." Results are automatically biased toward your current route, so you\'re not scrolling through places three hours away.',
+    title: 'Explore and discover',
+    body: 'Search restaurants, cafes, hotels, museums, parks, shops, and attractions, or describe what you want in plain language. Results stay relevant to the route, so you are not sorting through places three hours away.',
   },
   {
     slug: 'interactive-map',
-    icon: '🗺️',
-    title: 'Interactive Map',
-    body: 'Every stop lives on a full interactive map. Switch to satellite view or drop into Street View before you arrive, check transit routes for stops with public transport, and see photos, ratings, hours, and contact info without leaving the planner.',
+    title: 'Interactive map',
+    body: 'See every stop on one map. Check photos, ratings, hours, contact details, transit options, satellite imagery, and Street View without losing the wider route.',
   },
   {
     slug: 'save-organize',
-    icon: '🔖',
-    title: 'Save & Organize',
-    body: 'Found ten places you love and can only visit three? Save them all into custom lists — "Must-see attractions," "Backup restaurants," whatever makes sense for your trip — directly from search results or the map.',
+    title: 'Save and organize',
+    body: 'Found ten places you like and time for only three? Save them into practical lists such as must-see attractions or backup restaurants, directly from search results or the map.',
   },
   {
     slug: 'share-trips',
-    icon: '🔗',
-    title: 'Share Trips & Lists',
-    body: 'Every trip and every saved list can become a shareable link with a clean, custom URL. Send it to whoever you\'re traveling with so everyone can see the plan — no account required to view, sign-in only needed if you want to edit or create your own.',
+    title: 'Share trips and lists',
+    body: 'Every trip and saved list can become a shareable link. Send it to the people traveling with you so everyone can see the plan without digging through a message thread.',
   },
   {
     slug: 'export-print',
-    icon: '📄',
-    title: 'Export & Print',
-    body: 'When it\'s time to hit the road, export your itinerary as a PDF in a Detailed layout (maps, routes, addresses, timelines) or a Clean layout (just the schedule) — or print it directly. Perfect for the parts of a road trip where you don\'t want to be staring at a phone.',
+    title: 'Export and print',
+    body: 'Export a detailed PDF with maps, routes, addresses, and timelines, or use a clean layout with just the schedule. It is useful when signal is unreliable or a phone is not the best screen.',
   },
 ];
 
@@ -50,22 +44,30 @@ const breadcrumbSchema = {
 };
 ---
 <Layout
-  title="Features | TripLion"
-  description="Everything TripLion does to help you plan, discover, and share the perfect road trip."
+  title="Road Trip Planner Features | TripLion"
+  description="Explore TripLion features for route-aware discovery, multi-day itineraries, interactive maps, saved lists, trip sharing, and PDF export."
   path="/features"
 >
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  <section class="section container">
-    <h1 class="section-title">Everything you need to plan the perfect road trip</h1>
-    {features.map((f) => (
-      <div id={f.slug} class="feature-card" style="margin-bottom: 20px;">
-        <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-        <h2>{f.title}</h2>
-        <p>{f.body}</p>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <main>
+    <section class="page-intro container">
+      <p class="eyebrow">TripLion features</p>
+      <h1>Everything the route needs, in one place</h1>
+      <p>Discover promising stops, organize the itinerary, share it with your group, and take a clean copy on the road.</p>
+    </section>
+    <section class="section container">
+      <div class="card-grid">
+        {features.map((feature, index) => (
+          <div id={feature.slug} class="feature-card">
+            <span class="feature-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h2>{feature.title}</h2>
+            <p>{feature.body}</p>
+          </div>
+        ))}
       </div>
-    ))}
-    <div class="final-cta">
-      <a href="/#notify" class="cta-button">Coming Soon</a>
-    </div>
-  </section>
+      <div class="final-cta">
+        <a href="https://app.trip-lion.com" class="cta-button">Open TripLion</a>
+      </div>
+    </section>
+  </main>
 </Layout>

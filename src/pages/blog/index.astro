@@ -3,23 +3,28 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
-  .filter((p) => p.slug !== 'placeholder-post')
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <Layout
-  title="Blog | TripLion"
-  description="Road trip planning guides, tips, and inspiration from TripLion."
+  title="Road Trip Planning Guides | TripLion"
+  description="Practical road trip planning guides for building better routes, finding worthwhile stops, organizing group trips, and getting ready to drive."
   path="/blog"
 >
-  <section class="section container">
-    <h1 class="section-title">The TripLion Blog</h1>
-    <div class="blog-grid">
-      {posts.map((post) => (
-        <a class="blog-card" href={`/blog/${post.slug}/`}>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
+  <main>
+    <section class="blog-index container">
+      <h1>The TripLion Blog</h1>
+      <p>Practical, no-fluff advice for planning better road trips.</p>
+      <div class="blog-grid compact">
+        {posts.map((post) => (
+          <a class="blog-card" href={`/blog/${post.slug}/`}>
+            <div class="blog-card-body">
+              <p class="card-meta">{post.data.category}</p>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
 </Layout>

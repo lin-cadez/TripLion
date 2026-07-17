@@ -1,153 +1,114 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-
-let posts: Awaited<ReturnType<typeof getCollection>> = [];
-try {
-  posts = (await getCollection('blog'))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 3);
-} catch {
-  posts = [];
-}
 
 const features = [
-  { slug: 'ai-chat', icon: '💬', title: 'AI Travel Chat', blurb: 'Ask TripLion anything about your route. Our AI assistant suggests destinations, answers questions, and helps you plan on the fly.' },
-  { slug: 'explore-discover', icon: '🧭', title: 'Explore & Discover', blurb: 'Search restaurants, hotels, attractions, and hidden gems along your route, with AI-powered recommendations for every kind of traveler.' },
-  { slug: 'interactive-map', icon: '🗺️', title: 'Interactive Map', blurb: 'See your full route on an interactive map with Street View, transit info, photos, and reviews for every stop.' },
-  { slug: 'save-organize', icon: '🔖', title: 'Save & Organize', blurb: 'Bookmark places into custom lists right from your search results — must-see attractions, favorite restaurants, anything.' },
-  { slug: 'share-trips', icon: '🔗', title: 'Share Trips & Lists', blurb: 'Generate a shareable link for any trip or list, so friends and family can see the plan.' },
-  { slug: 'export-print', icon: '📄', title: 'Export & Print', blurb: 'Download a clean PDF, or print a detailed itinerary with maps, routes, and timelines.' },
+  {
+    number: '01',
+    title: 'Itinerary and map, one view',
+    body: 'See every stop, stay, and route on the same screen, without tab-switching between apps.',
+  },
+  {
+    number: '02',
+    title: 'Smart checklists',
+    body: 'Packing, budget, and to-dos that build from the itinerary you are already planning.',
+  },
+  {
+    number: '03',
+    title: 'Plan together, in real time',
+    body: 'Invite your trip mates and edit the same plan live, from anywhere.',
+  },
 ];
 ---
 <Layout
-  title="TripLion | Road Trip. Reimagined."
-  description="TripLion is an intelligent AI road trip planner. Discover places, plan the perfect route, and turn every mile into a clear itinerary."
+  title="TripLion — Plan every trip like it is already planned"
+  description="TripLion turns scattered bookings, bookmarks, routes, stays, and trip to-dos into one calm itinerary and map."
   path="/"
+  ogImage="/assets/product/triplion-itinerary-map.webp"
 >
-  <main class="page">
-    <section class="hero container">
-      <span class="mark" aria-hidden="true"><img src="/assets/logo-lion.png" alt="" /></span>
-      <h1 class="brand">TripLion</h1>
-      <p class="tagline">Road Trip. Reimagined.</p>
-      <p class="pitch">
-        An intelligent road trip planner that helps you discover stunning places,
-        plan the perfect route, and turn every mile into a memory.
-      </p>
-      <a href="#notify" class="cta-button">Coming Soon</a>
-    </section>
-
-    <section id="notify" class="signup-section container">
-      <div class="divider" aria-hidden="true"></div>
-      <p class="soon">Coming Soon</p>
-      <p class="subcopy">Be the first to plan your next adventure.</p>
-      <form class="signup" action="https://formspree.io/f/mkoalrzq" method="POST" aria-label="TripLion newsletter form">
-        <div class="form-row">
-          <label class="sr-only" for="email">Your email</label>
-          <input
-            class="email-input"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Enter your email address"
-            autocomplete="email"
-            required
-          />
-          <input type="hidden" name="form-name" value="homepage-signup" />
-          <input type="hidden" name="message" value="Notify me when TripLion launches." />
-          <button class="notify-button" type="submit">Notify me</button>
-        </div>
-        <p class="privacy-note">We respect your privacy. No spam, ever.</p>
-        <p class="status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section class="section container">
-      <h2 class="section-title">Everything you need for the road</h2>
-      <div class="card-grid">
-        {features.map((f) => (
-          <a class="feature-card" href={`/features#${f.slug}`}>
-            <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-            <h3>{f.title}</h3>
-            <p>{f.blurb}</p>
-          </a>
-        ))}
+  <main>
+    <section class="landing-hero">
+      <div class="container hero-center">
+        <p class="status-pill">Now in early access</p>
+        <h1>The itinerary and the map, finally in one place.</h1>
+        <p class="hero-lede">
+          TripLion turns scattered bookings and bookmarks into one calm trip plan:
+          routes, stays, and to-dos, organized automatically.
+        </p>
+        <form id="waitlist" class="waitlist-form" action="https://formspree.io/f/mkoalrzq" method="POST" aria-label="TripLion waitlist form">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
+          <input type="hidden" name="form-name" value="homepage-waitlist" />
+          <input type="hidden" name="message" value="Add me to the TripLion early access waitlist." />
+          <button type="submit">Join waitlist</button>
+        </form>
+        <p class="form-note">Free during early access. No spam, ever.</p>
       </div>
     </section>
 
-    <section class="section container">
-      <h2 class="section-title">How it works</h2>
-      <div class="steps-grid">
-        <div class="step">
-          <span class="step-number">1</span>
-          <h3>Plan</h3>
-          <p>Drop in your stops and let TripLion build the route.</p>
+    <section class="product-preview container" aria-label="TripLion product preview">
+      <div class="browser-frame">
+        <div class="browser-top">
+          <span></span><span></span><span></span>
+          <div>app.trip-lion.com/trip/iceland</div>
         </div>
-        <div class="step">
-          <span class="step-number">2</span>
-          <h3>Discover</h3>
-          <p>Explore AI-picked places along the way — food, sights, hidden gems.</p>
-        </div>
-        <div class="step">
-          <span class="step-number">3</span>
-          <h3>Go</h3>
-          <p>Export, share, and hit the road with your itinerary in hand.</p>
-        </div>
+        <img
+          src="/assets/product/triplion-itinerary-map.webp"
+          alt="TripLion itinerary and map view for a road trip"
+          width="1600"
+          height="950"
+          fetchpriority="high"
+        />
       </div>
     </section>
 
-    {posts.length > 0 && (
-      <section class="section container">
-        <h2 class="section-title">From the blog</h2>
-        <div class="blog-grid">
-          {posts.map((post) => (
-            <a class="blog-card" href={`/blog/${post.slug}/`}>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </a>
-          ))}
-        </div>
-        <a href="/blog" class="link-more">Read the blog →</a>
-      </section>
-    )}
+    <section class="feature-strip container">
+      {features.map((feature) => (
+        <article>
+          <p>{feature.number}</p>
+          <h2>{feature.title}</h2>
+          <p>{feature.body}</p>
+        </article>
+      ))}
+    </section>
 
-    <section class="section container final-cta">
-      <h2 class="section-title">Don't miss the launch</h2>
-      <a href="#notify" class="cta-button">Coming Soon</a>
+    <section class="cta-band">
+      <div class="container">
+        <h2>Ready for a calmer way to plan?</h2>
+        <p>Join the waitlist and be first in when we open the doors.</p>
+        <a class="pill-button dark" href="#waitlist">Join the waitlist</a>
+      </div>
     </section>
   </main>
 
   <script>
-    const forms = document.querySelectorAll('form.signup');
-    forms.forEach((signupForm) => {
-      const statusMessage = signupForm.querySelector('.status');
-      const submitButton = signupForm.querySelector('button[type="submit"]');
-      signupForm.addEventListener('submit', async (event) => {
+    const form = document.querySelector<HTMLFormElement>('.waitlist-form');
+    if (form) {
+      const note = document.querySelector<HTMLElement>('.form-note');
+      const button = form.querySelector<HTMLButtonElement>('button');
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const formData = new FormData(signupForm);
-        const originalButtonText = submitButton.textContent;
-        statusMessage.classList.remove('is-visible');
-        statusMessage.textContent = '';
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
+        if (!button || !note) return;
+        const original = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Joining...';
         try {
-          const response = await fetch(signupForm.action, {
+          const response = await fetch(form.action, {
             method: 'POST',
-            body: formData,
+            body: new FormData(form),
             headers: { Accept: 'application/json' },
           });
-          if (!response.ok) throw new Error('Form submission failed');
-          signupForm.reset();
-          statusMessage.textContent = 'Thank you - you are on the list.';
-          statusMessage.classList.add('is-visible');
-        } catch (error) {
-          statusMessage.textContent = 'Something went wrong. Please try again.';
-          statusMessage.classList.add('is-visible');
+          if (!response.ok) throw new Error('Submission failed');
+          form.reset();
+          note.textContent = "You're on the list. We'll email you when your spot opens up.";
+          note.classList.add('success');
+        } catch {
+          note.textContent = 'Something went wrong. Please try again.';
+          note.classList.remove('success');
         } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
+          button.disabled = false;
+          button.textContent = original;
         }
       });
-    });
+    }
   </script>
 </Layout>

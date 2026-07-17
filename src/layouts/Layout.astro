@@ -8,9 +8,16 @@ export interface Props {
   description: string;
   path?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
 }
 
-const { title, description, path = '/', ogImage = '/assets/logo-lion.png' } = Astro.props;
+const {
+  title,
+  description,
+  path = '/',
+  ogImage = '/assets/logo-lion.png',
+  ogType = 'website',
+} = Astro.props;
 const canonical = new URL(path, Astro.site).toString();
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
 
@@ -48,12 +55,10 @@ const softwareSchema = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  <meta name="theme-color" content="#160d0a" />
-  <!-- Replace the content value below with your real Google Search Console verification code -->
-  <meta name="google-site-verification" content="REPLACE_WITH_SEARCH_CONSOLE_CODE" />
+  <meta name="theme-color" content="#ffffff" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImageUrl} />
   <meta name="twitter:card" content="summary_large_image" />
@@ -61,16 +66,9 @@ const softwareSchema = {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
   <link rel="icon" href="/assets/logo-lion.png" />
-  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ window.dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
 </head>
 <body>
   <Header />

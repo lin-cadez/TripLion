@@ -6,11 +6,13 @@ import Layout from '../layouts/Layout.astro';
   description="Get in touch with the TripLion team."
   path="/contact"
 >
+  <main>
+  <section class="page-intro container">
+    <p class="eyebrow">Contact TripLion</p>
+    <h1>Get in touch</h1>
+    <p>Have a question or a useful bit of feedback? Email <a href="mailto:hello@trip-lion.com">hello@trip-lion.com</a> or use the form below.</p>
+  </section>
   <section class="section container">
-    <h1 class="section-title">Get in touch</h1>
-    <p class="subcopy" style="text-align:center;">
-      Prefer email? Reach us directly at <a href="mailto:hello@trip-lion.com" style="color:var(--glow);">hello@trip-lion.com</a>.
-    </p>
     <form class="signup" id="contact-form" action="https://formspree.io/f/mkoalrzq" method="POST" aria-label="Contact form">
       <input type="hidden" name="form-name" value="contact" />
       <div style="display:grid; gap:12px; margin-bottom:12px;">
@@ -25,12 +27,14 @@ import Layout from '../layouts/Layout.astro';
       <p class="status" role="status" aria-live="polite"></p>
     </form>
   </section>
+  </main>
 
   <script>
-    const form = document.getElementById('contact-form');
+    const form = document.querySelector<HTMLFormElement>('#contact-form');
     if (form) {
-      const statusMessage = form.querySelector('.status');
-      const submitButton = form.querySelector('button[type="submit"]');
+      const statusMessage = form.querySelector<HTMLElement>('.status');
+      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!statusMessage || !submitButton) throw new Error('Contact form controls are missing');
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(form);

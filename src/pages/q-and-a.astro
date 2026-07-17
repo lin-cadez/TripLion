@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    question: 'What is TripLion?',
+    answer: 'TripLion is a trip planner that keeps your itinerary and your map in one view, so you can plan routes, stays, and to-dos without juggling separate apps.',
+  },
+  {
+    question: 'When can I start using it?',
+    answer: "TripLion is in early access. Join the waitlist and we will email you as spots open up.",
+  },
+  {
+    question: 'Will it cost anything?',
+    answer: 'TripLion is free to use during early access. We will be upfront well before anything changes.',
+  },
+  {
+    question: 'Can I plan trips with other people?',
+    answer: 'Yes. Invite trip mates to a plan and edit the same itinerary together in real time.',
+  },
+  {
+    question: 'Is my trip data private?',
+    answer: 'By default, only you can see your trips. You choose who to share a plan with, and can revoke access anytime.',
+  },
+  {
+    question: 'How do I get help if something breaks?',
+    answer: 'Email hello@trip-lion.com or use the contact form. We read every message ourselves.',
+  },
+];
+---
+<Layout
+  title="Q&A — TripLion"
+  description="Answers to common TripLion questions about early access, pricing, collaboration, privacy, and getting help."
+  path="/q-and-a"
+>
+  <main class="qa-page">
+    <section class="container qa-inner">
+      <h1>Q&A</h1>
+      <p>Answers to what people ask us most. Still stuck? <a href="/contact">Contact us</a>.</p>
+      <div class="faq-list">
+        {faqs.map((faq, index) => (
+          <details open={index === 0}>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
