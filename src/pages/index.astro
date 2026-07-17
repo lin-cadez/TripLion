@@ -48,9 +48,24 @@ const features = [
     <section class="product-preview container" aria-label="TripLion product preview">
       <div class="browser-frame">
         <div class="browser-canvas">
-          <div class="browser-top">
-            <span></span><span></span><span></span>
-            <div>app.trip-lion.com/trip/iceland</div>
+          <div class="browser-top" aria-hidden="true">
+            <div class="browser-tab-row">
+              <span class="traffic red"></span>
+              <span class="traffic yellow"></span>
+              <span class="traffic green"></span>
+              <div class="browser-tab">
+                <span></span>
+                New Tab
+              </div>
+            </div>
+            <div class="browser-address-row">
+              <span class="browser-dot"></span>
+              <div class="browser-address">
+                <span></span>
+                app.trip-lion.com/trip/iceland
+              </div>
+              <span class="browser-dot"></span>
+            </div>
           </div>
           <img
             src="/assets/product/triplion-itinerary-map.webp"
