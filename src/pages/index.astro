@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { seoPages } from '../data/seoPages';
 
 const features = [
   {
@@ -18,6 +19,8 @@ const features = [
     body: 'Invite your trip mates and edit the same plan live, from anywhere.',
   },
 ];
+
+const planningPages = seoPages;
 ---
 <Layout
   title="TripLion — Plan every trip like it is already planned"
@@ -86,6 +89,23 @@ const features = [
           <p>{feature.body}</p>
         </article>
       ))}
+    </section>
+
+    <section class="section-band">
+      <div class="container">
+        <div class="section-heading center">
+          <h2>Plan the trip you actually have</h2>
+        </div>
+        <div class="card-grid seo-link-grid">
+          {planningPages.map((page) => (
+            <a class="feature-card" href={`/${page.slug}/`}>
+              <p class="card-meta">{page.eyebrow}</p>
+              <h3>{page.h1}</h3>
+              <p>{page.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
 
     <section class="cta-band">

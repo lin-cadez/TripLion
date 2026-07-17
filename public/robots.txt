@@ -1,4 +1,7 @@
 User-agent: *
+Disallow: /account/
+Disallow: /dashboard/
+Disallow: /api/
 Allow: /
 
 Sitemap: https://trip-lion.com/sitemap.xml

@@ -1,5 +1,8 @@
 ---
+import { seoPages } from '../data/seoPages';
+
 const year = new Date().getFullYear();
+const planningLinks = seoPages;
 ---
 <footer class="site-footer">
   <div class="footer-inner">
@@ -15,6 +18,7 @@ const year = new Date().getFullYear();
         <h3>Product</h3>
         <a href="/#waitlist">Join waitlist</a>
         <a href="/blog">Blog</a>
+        {planningLinks.map((page) => <a href={`/${page.slug}/`}>{page.eyebrow}</a>)}
       </div>
       <div>
         <h3>Company</h3>

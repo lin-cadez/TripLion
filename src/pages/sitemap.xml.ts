@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { seoPages } from '../data/seoPages';
 
 const site = 'https://trip-lion.com';
 
@@ -11,6 +12,7 @@ const staticPages = [
   { path: '/q-and-a/', priority: '0.5' },
   { path: '/privacy/', priority: '0.3' },
   { path: '/terms/', priority: '0.3' },
+  ...seoPages.map((page) => ({ path: `/${page.slug}/`, priority: '0.8' })),
 ];
 
 const escapeXml = (value: string) =>

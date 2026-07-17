@@ -530,6 +530,70 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 800;
   line-height: 1.15;
 }
+.seo-intro {
+  max-width: 820px;
+}
+.seo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 40px;
+  align-items: start;
+}
+.seo-main {
+  min-width: 0;
+}
+.seo-section-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.example-panel, .seo-faq {
+  margin-top: 32px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+}
+.example-panel h2, .seo-faq h2, .seo-sidebar h2 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1.25;
+}
+.example-panel p:last-child {
+  margin: 0;
+  color: #5b5652;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.seo-sidebar {
+  position: sticky;
+  top: 104px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--soft);
+}
+.seo-sidebar h2 {
+  font-size: 18px;
+}
+.seo-sidebar a {
+  display: block;
+  padding: 16px 0;
+  border-top: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.seo-sidebar span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--orange-dark);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.seo-link-grid .feature-card {
+  min-height: 100%;
+}
 .eyebrow, .article-kicker, .card-meta {
   margin: 0 0 10px;
   color: var(--orange-dark);
@@ -798,6 +862,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .landing-hero { padding-top: 72px; }
   .landing-hero h1 { font-size: 42px; }
   .feature-strip, .blog-grid, .card-grid, .steps-grid, .footer-grid { grid-template-columns: 1fr; }
+  .seo-layout { grid-template-columns: 1fr; }
+  .seo-section-grid { grid-template-columns: 1fr; }
+  .seo-sidebar { position: static; }
   .article-grid { grid-template-columns: 1fr; width: min(700px, calc(100% - 40px)); }
   .toc { position: static; padding: 18px; border: 1px solid var(--line); border-radius: 16px; }
 }
