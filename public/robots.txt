@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://trip-lion.com/sitemap-index.xml
+Sitemap: https://trip-lion.com/sitemap.xml
