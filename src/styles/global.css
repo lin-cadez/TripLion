@@ -98,6 +98,51 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   align-items: center;
   gap: 16px;
 }
+.mobile-nav { display: none; }
+.mobile-nav summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav[open] summary { border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; }
+.mobile-nav-links {
+  position: absolute;
+  right: 0;
+  margin-top: 10px;
+  min-width: 188px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 22px 40px -28px rgba(32, 28, 26, .4);
+}
+.mobile-nav-links a {
+  display: block;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+.mobile-nav-links a:hover { background: var(--soft); color: var(--ink); }
+.mobile-nav-links .pill-button {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding: 9px 14px;
+  color: #fff;
+}
 
 .pill-button {
   display: inline-flex;
@@ -302,6 +347,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .04em;
+}
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: var(--orange-soft);
+  font-size: 20px;
 }
 .feature-strip h2 {
   margin: 0 0 8px;
@@ -849,16 +905,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 900px) {
   .header-inner {
-    grid-template-columns: 1fr auto;
+   grid-template-columns: 1fr auto;
+   position: relative;
   }
-  .site-nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-content: center;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
-  }
-  .header-actions { gap: 12px; }
+  .site-nav, .header-actions { display: none; }
+  .mobile-nav { display: block; }
   .landing-hero { padding-top: 72px; }
   .landing-hero h1 { font-size: 42px; }
   .feature-strip, .blog-grid, .card-grid, .steps-grid, .footer-grid { grid-template-columns: 1fr; }
@@ -873,7 +924,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .container, .header-inner { width: min(100% - 32px, 1160px); }
   .header-inner { gap: 12px; padding: 12px 0; }
   .brand-mark { font-size: 17px; }
-  .site-nav { gap: 22px; }
   .pill-button { min-height: 38px; padding: 9px 14px; font-size: 13.5px; }
   .landing-hero { padding: 56px 0 36px; }
   .landing-hero h1 { font-size: 34px; }

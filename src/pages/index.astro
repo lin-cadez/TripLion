@@ -1,41 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import { seoPages } from '../data/seoPages';
 
 const features = [
   {
     number: '01',
+    icon: '🗺️',
     title: 'Itinerary and map, one view',
     body: 'See every stop, stay, and route on the same screen, without tab-switching between apps.',
   },
   {
     number: '02',
-    title: 'Smart checklists',
-    body: 'Packing, budget, and to-dos that build from the itinerary you are already planning.',
+    icon: '✨',
+    title: 'AI-assisted discovery and instant navigation',
+    body: 'Find places with AI-assisted search, then open one-click Google Maps navigation when it is time to go.',
   },
   {
     number: '03',
-    title: 'Plan together, in real time',
-    body: 'Invite your trip mates and edit the same plan live, from anywhere.',
+    icon: '🤝',
+    title: 'Plan together with notes and reservations',
+    body: 'Share trips with friends, co-edit the plan, and attach notes and reservation details to each stop.',
   },
 ];
 
 const planningPages = seoPages;
+const topBlogPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 <Layout
-  title="TripLion — Plan every trip like it is already planned"
-  description="TripLion turns scattered bookings, bookmarks, routes, stays, and trip to-dos into one calm itinerary and map."
+  title="TripLion Map — Plan every trip in one clear view"
+  description="TripLion Map brings your itinerary, map, AI discovery, notes, reservations, and sharing tools into one organized travel plan."
   path="/"
   ogImage="/assets/product/triplion-itinerary-map.webp"
 >
   <main>
     <section class="landing-hero">
       <div class="container hero-center">
-        <p class="status-pill">Now in early access</p>
-        <h1>The itinerary and the map, finally in one place.</h1>
+        <p class="status-pill">Pre-release waitlist now open</p>
+        <h1>TripLion Map keeps your whole trip plan in one place.</h1>
         <p class="hero-lede">
-          TripLion turns scattered bookings and bookmarks into one calm trip plan:
-          routes, stays, and to-dos, organized automatically.
+          Build an itinerary, explore places with AI-assisted search, open Google Maps in one click,
+          and plan together with your travel group.
         </p>
         <form id="waitlist" class="waitlist-form" action="https://formspree.io/f/mkoalrzq" method="POST" aria-label="TripLion waitlist form">
           <label class="sr-only" for="email">Email address</label>
@@ -44,7 +51,7 @@ const planningPages = seoPages;
           <input type="hidden" name="message" value="Add me to the TripLion early access waitlist." />
           <button type="submit">Join waitlist</button>
         </form>
-        <p class="form-note">Free during early access. No spam, ever.</p>
+        <p class="form-note">Pre-release access is free. Your data is encrypted in transit and at rest.</p>
       </div>
     </section>
 
@@ -85,6 +92,7 @@ const planningPages = seoPages;
       {features.map((feature) => (
         <article>
           <p>{feature.number}</p>
+          <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
           <h2>{feature.title}</h2>
           <p>{feature.body}</p>
         </article>
@@ -94,7 +102,7 @@ const planningPages = seoPages;
     <section class="section-band">
       <div class="container">
         <div class="section-heading center">
-          <h2>Plan the trip you actually have</h2>
+          <h2>Pick the planning workflow that matches your trip</h2>
         </div>
         <div class="card-grid seo-link-grid">
           {planningPages.map((page) => (
@@ -105,6 +113,23 @@ const planningPages = seoPages;
             </a>
           ))}
         </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-heading">
+        <h2>Latest from the TripLion blog</h2>
+      </div>
+      <div class="blog-grid compact">
+        {topBlogPosts.map((post) => (
+          <a class="blog-card" href={`/blog/${post.slug}/`}>
+            <div class="blog-card-body">
+              <p class="card-meta">{post.data.category}</p>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 

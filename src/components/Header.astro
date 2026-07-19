@@ -1,8 +1,9 @@
 ---
 const navItems = [
+  { href: '/', label: 'Home' },
   { href: '/blog', label: 'Blog' },
-  { href: '/about', label: 'About' },
   { href: '/q-and-a', label: 'Q&A' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="site-header">
@@ -17,5 +18,12 @@ const navItems = [
     <div class="header-actions">
       <a class="pill-button" href="/#waitlist">Join waitlist</a>
     </div>
+    <details class="mobile-nav">
+      <summary aria-label="Toggle navigation menu">Menu</summary>
+      <nav class="mobile-nav-links" aria-label="Mobile primary">
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a class="pill-button" href="/#waitlist">Join waitlist</a>
+      </nav>
+    </details>
   </div>
 </header>
