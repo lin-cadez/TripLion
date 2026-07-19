@@ -88,15 +88,21 @@ const topBlogPosts = (await getCollection('blog'))
       </div>
     </section>
 
-    <section class="feature-strip container">
-      {features.map((feature) => (
-        <article>
-          <p>{feature.number}</p>
-          <span class="feature-icon" aria-hidden="true" set:html={feature.icon} />
-          <h2>{feature.title}</h2>
-          <p>{feature.body}</p>
-        </article>
-      ))}
+    <section class="feature-strip-wrap container">
+      <div class="section-heading center">
+        <h2>What TripLion Map does</h2>
+        <p class="section-subtitle">Three things, working together on one screen.</p>
+      </div>
+      <div class="feature-strip">
+        {features.map((feature) => (
+          <article>
+            <span class="feature-icon" aria-hidden="true" set:html={feature.icon} />
+            <h3>{feature.title}</h3>
+            <p>{feature.body}</p>
+          </article>
+        ))}
+      </div>
+      <p class="feature-strip-more"><a href="/features">See everything TripLion Map includes &rarr;</a></p>
     </section>
 
     <section class="section-band">
