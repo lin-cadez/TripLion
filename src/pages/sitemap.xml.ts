@@ -7,7 +7,6 @@ const staticPages = [
   { path: '/', priority: '1.0' },
   { path: '/features/', priority: '0.8' },
   { path: '/blog/', priority: '0.8' },
-  { path: '/about/', priority: '0.6' },
   { path: '/contact/', priority: '0.5' },
   { path: '/q-and-a/', priority: '0.5' },
   { path: '/privacy/', priority: '0.3' },
