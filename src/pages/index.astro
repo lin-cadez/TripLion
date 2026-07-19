@@ -6,21 +6,21 @@ import { seoPages } from '../data/seoPages';
 const features = [
   {
     number: '01',
-    icon: '🗺️',
     title: 'Itinerary and map, one view',
     body: 'See every stop, stay, and route on the same screen, without tab-switching between apps.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5 4 6.5v13l5-2 6 2 5-2v-13l-5 2-6-2Z"/><path d="M9 4.5v13"/><path d="M15 6.5v13"/><circle cx="12" cy="12.2" r="1.4" fill="currentColor" stroke="none"/></svg>`,
   },
   {
     number: '02',
-    icon: '✨',
-    title: 'AI-assisted discovery and instant navigation',
-    body: 'Find places with AI-assisted search, then open one-click Google Maps navigation when it is time to go.',
+    title: 'AI-assisted discovery and one-click navigation',
+    body: 'Search for places in plain language, then open Google Maps navigation to any stop in a single click.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m19.5 19.5-4.2-4.2"/><path d="M10.5 7.5v6"/><path d="M7.5 10.5h6"/><path d="M18.5 3.5v3M17 5h3" stroke-width="1.3"/></svg>`,
   },
   {
     number: '03',
-    icon: '🤝',
-    title: 'Plan together with notes and reservations',
-    body: 'Share trips with friends, co-edit the plan, and attach notes and reservation details to each stop.',
+    title: 'Share the plan and keep reservations organized',
+    body: 'Invite friends to co-edit the itinerary, and attach notes and reservation details to each destination.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.3"/><circle cx="18" cy="5.5" r="2.3"/><circle cx="18" cy="18.5" r="2.3"/><path d="m8.1 10.8 7.8-4.4"/><path d="m8.1 13.2 7.8 4.4"/></svg>`,
   },
 ];
 
@@ -31,18 +31,18 @@ const topBlogPosts = (await getCollection('blog'))
 ---
 <Layout
   title="TripLion Map — Plan every trip in one clear view"
-  description="TripLion Map brings your itinerary, map, AI discovery, notes, reservations, and sharing tools into one organized travel plan."
+  description="TripLion Map brings your itinerary, map, AI-assisted discovery, one-click navigation, and trip sharing into one organized, encrypted travel plan."
   path="/"
   ogImage="/assets/product/triplion-itinerary-map.webp"
 >
   <main>
     <section class="landing-hero">
       <div class="container hero-center">
-        <p class="status-pill">Pre-release waitlist now open</p>
-        <h1>TripLion Map keeps your whole trip plan in one place.</h1>
+        <p class="status-pill">Pre-release &mdash; beta hasn&rsquo;t started yet</p>
+        <h1>The itinerary and the map, finally in one place.</h1>
         <p class="hero-lede">
-          Build an itinerary, explore places with AI-assisted search, open Google Maps in one click,
-          and plan together with your travel group.
+          Build your route, discover places with AI-assisted search, open Google Maps navigation
+          in one click, and plan together with the people joining you.
         </p>
         <form id="waitlist" class="waitlist-form" action="https://formspree.io/f/mkoalrzq" method="POST" aria-label="TripLion waitlist form">
           <label class="sr-only" for="email">Email address</label>
@@ -51,7 +51,7 @@ const topBlogPosts = (await getCollection('blog'))
           <input type="hidden" name="message" value="Add me to the TripLion early access waitlist." />
           <button type="submit">Join waitlist</button>
         </form>
-        <p class="form-note">Pre-release access is free. Your data is encrypted in transit and at rest.</p>
+        <p class="form-note">Free while we&rsquo;re in pre-release. Your trip data is encrypted in transit and at rest.</p>
       </div>
     </section>
 
@@ -92,7 +92,7 @@ const topBlogPosts = (await getCollection('blog'))
       {features.map((feature) => (
         <article>
           <p>{feature.number}</p>
-          <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
+          <span class="feature-icon" aria-hidden="true" set:html={feature.icon} />
           <h2>{feature.title}</h2>
           <p>{feature.body}</p>
         </article>
@@ -102,7 +102,12 @@ const topBlogPosts = (await getCollection('blog'))
     <section class="section-band">
       <div class="container">
         <div class="section-heading center">
-          <h2>Pick the planning workflow that matches your trip</h2>
+          <h2>One product, several ways to start planning</h2>
+          <p class="section-subtitle">
+            TripLion Map is a single tool, but people arrive at it from different angles &mdash;
+            starting from a route, a destination, or a group of friends. Pick the guide closest to
+            how you&rsquo;re already thinking about this trip.
+          </p>
         </div>
         <div class="card-grid seo-link-grid">
           {planningPages.map((page) => (
@@ -118,11 +123,12 @@ const topBlogPosts = (await getCollection('blog'))
 
     <section class="section container">
       <div class="section-heading">
-        <h2>Latest from the TripLion blog</h2>
+        <h2>From the blog</h2>
       </div>
       <div class="blog-grid compact">
         {topBlogPosts.map((post) => (
           <a class="blog-card" href={`/blog/${post.slug}/`}>
+            <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" width="640" height="360" />
             <div class="blog-card-body">
               <p class="card-meta">{post.data.category}</p>
               <h3>{post.data.title}</h3>

@@ -1,6 +1,7 @@
 ---
 const navItems = [
   { href: '/', label: 'Home' },
+  { href: '/features', label: 'Features' },
   { href: '/blog', label: 'Blog' },
   { href: '/q-and-a', label: 'Q&A' },
   { href: '/contact', label: 'Contact' },
@@ -18,12 +19,55 @@ const navItems = [
     <div class="header-actions">
       <a class="pill-button" href="/#waitlist">Join waitlist</a>
     </div>
-    <details class="mobile-nav">
-      <summary aria-label="Toggle navigation menu">Menu</summary>
-      <nav class="mobile-nav-links" aria-label="Mobile primary">
-        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-        <a class="pill-button" href="/#waitlist">Join waitlist</a>
-      </nav>
-    </details>
+
+    <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
   </div>
+
+  <div class="mobile-nav-backdrop" hidden></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile primary" hidden>
+    {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    <a class="pill-button" href="/#waitlist">Join waitlist</a>
+  </nav>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const menu = document.querySelector<HTMLElement>('.mobile-nav');
+  const backdrop = document.querySelector<HTMLElement>('.mobile-nav-backdrop');
+
+  function closeMenu() {
+    if (!toggle || !menu || !backdrop) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.classList.remove('is-open');
+    menu.hidden = true;
+    backdrop.hidden = true;
+    document.body.classList.remove('nav-open');
+  }
+
+  function openMenu() {
+    if (!toggle || !menu || !backdrop) return;
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.classList.add('is-open');
+    menu.hidden = false;
+    backdrop.hidden = false;
+    document.body.classList.add('nav-open');
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  backdrop?.addEventListener('click', closeMenu);
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+</script>
